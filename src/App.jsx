@@ -13,6 +13,7 @@ import LoadingBar from 'react-top-loading-bar'
 
 //component
 import Routes from './routes';
+import { useHttp } from './hook/use-http';
 
 
 
@@ -21,18 +22,10 @@ const App = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    const http = useHttp();
+
     const [readyDom,setReadyDom] = useState(false);
     const [progress, setProgress] = useState(0)
-
-    const http = axios.create({
-        baseURL: 'http://localhost:8000',
-        headers:{
-            // 'X-Requested-Width':'XMLHTTPRequest',
-            'Accept':'application/json'
-        },
-        withCredentials:true,
-    });
 
     const autoLoad = async() =>{
         setProgress(progress+30)         
