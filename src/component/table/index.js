@@ -1,0 +1,1 @@
+export { default as TableStyle } from './TableStyle';

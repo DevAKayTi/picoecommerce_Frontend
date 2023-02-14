@@ -1,0 +1,14 @@
+.social-btn{
+    min-width: 65px;
+    font-size: 14px;
+    color: rgba(140,140,140,1);
+    font-weight: 600;
+    border: 1px solid rgba(140,140,140,0.5);
+    padding: 5px 15px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.social-btn:hover{
+    border-color: rgba(140,140,140,1);
+}

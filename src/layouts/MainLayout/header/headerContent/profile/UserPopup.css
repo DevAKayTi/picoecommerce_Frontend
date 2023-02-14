@@ -1,0 +1,11 @@
+.user-popup{
+    font-size: 16px;
+}
+
+.user-popup li button{
+    text-transform: capitalize;
+}
+
+.user-popup li:hover {
+    background-color:rgb(230,247,255);
+}

@@ -1,0 +1,23 @@
+.tableStyle{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableStyle th,td{
+    font-size: 14px;
+    text-align: left;
+    border-bottom: 1px solid rgb(226, 227, 230);
+}
+
+.tableStyle th{
+    font-size: 15px;
+    padding: 15px 10px;
+}
+
+.tableStyle td{
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color:rgb(230,247,255);
+}

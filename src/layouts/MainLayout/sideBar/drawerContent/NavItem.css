@@ -1,0 +1,16 @@
+.nav-item{
+    color: rgb(65, 65, 65);
+    font-size: 14px;
+    transition: all 0.4s;
+}
+
+.nav-item:hover{
+    color: rgb(24, 144, 255);
+    background-color: rgb(230,247,255);
+}
+
+.nav-item.active{
+    color: rgb(24, 144, 255);
+    background-color: rgb(230,247,255);
+    border-right: 2px solid rgb(24, 144, 255);
+}
