@@ -93,7 +93,7 @@ const Role = () => {
                                     <td>
                                     {
                                         feature.includes(2) && (
-                                            <Link to={`${role.id}/edit`} className='float-left'>
+                                            <Link to={`${role.id}/edit`} className="float-left">
                                                 <button className='py-2 px-3 flex justify-center items-center bg-blue-500 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
                                             </Link>
                                         )
@@ -101,7 +101,7 @@ const Role = () => {
                                         
                                     {
                                         feature.includes(4) && (
-                                            <button className='inline-block' onClick={()=>{deleteRoleHandler(role.id)}} disabled={isLoading} className={`py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white`}><AiOutlineDelete className='mr-1'/>Delete</button>                        
+                                            <button onClick={()=>{deleteRoleHandler(role.id)}} disabled={isLoading} className={`py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white`}><AiOutlineDelete className='mr-1'/>Delete</button>                        
                                         )
                                     }
                                     </td>

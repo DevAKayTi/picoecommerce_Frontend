@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 
 //react-route
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Button from '../../../component/button/Button';
 import FireBaseSocial from './FireBaseSocial';
 import AnimateButton from '../../../component/button/AnimateButton';
 import {useHttp} from '../../../hook/use-http';
+import Loader from '../../../component/Loader';
 
 // third-party
 import * as Yup from 'yup';
@@ -29,7 +30,13 @@ const AuthLogin = () => {
     const http = useHttp(token);
 
     // const [checked,setChecked] = useState(false);
-    // const [showPassword,setShowPassword] = useState(false);
+    const [showPassword,setShowPassword] = useState(false);
+    const [loading,setLoading] = useState(false);
+    const [error,setError] = useState(null);
+
+    const hiddenHandler =() =>{
+        setShowPassword(!showPassword);
+    }
 
     useEffect(()=>{
         const requestUser = async()=>{
@@ -47,7 +54,7 @@ const AuthLogin = () => {
         if(token){
             requestUser();
         }
-    },[]);
+    },[token]);
     
   return (
     <>
@@ -55,7 +62,6 @@ const AuthLogin = () => {
         initialValues={{
             email : '',
             password : '',
-            submit : null
         }}
 
         validationSchema={Yup.object().shape({
@@ -64,14 +70,13 @@ const AuthLogin = () => {
         })}
 
         onSubmit={async(values,{setSubmitting})=>{
-
+            setLoading(true);
             const userLogin = {
                 email : values.email,
                 password:values.password
             }
 
             try{
-
                 const csrf = await http.get('/sanctum/csrf-cookie');
                 console.log(csrf);
 
@@ -79,12 +84,15 @@ const AuthLogin = () => {
                 console.log(login);
 
                 dispatch(authToken({token:login.data.message}));
-
-                navigate('/');
                 setSubmitting(false);
+                setLoading(false);
             }catch (err) {
-                console.log(err.response.data);
+                console.log(err.response.status);
+                if(err.response.status === 401){
+                    setError(err.response.status);
+                }
                 setSubmitting(false);
+                setLoading(false);
             }
         }}>
 
@@ -104,14 +112,16 @@ const AuthLogin = () => {
                                 placeholder="Enter email address"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                error={Boolean(touched.email && errors.email)}
+                                error={Boolean((touched.email && errors.email) || error)}
                                 errorMessage = {errors.email}
                             />
                         </div>
 
                         <div className='form-grid'>
                             <FormInput 
-                                // type={showPassword ? 'text': 'password'}
+                                type={showPassword ? 'text': 'password'}
+                                hidden = {showPassword}
+                                onHiddenHandler = {hiddenHandler}
                                 htmlFor="password-login"
                                 label="Password"
                                 id='password-login' 
@@ -120,19 +130,26 @@ const AuthLogin = () => {
                                 placeholder='Enter password'
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                error = {Boolean(touched.password && errors.password)}
+                                error = {Boolean((touched.password && errors.password) || error)}
                             />
                         </div>
-
+                        {
+                            error === 401 && (
+                                <div className='text-red-500 mb-3 text-sm text-center'>Email or Password not match</div>
+                            )
+                        }
                         <div className='form-grid'>
                             <AnimateButton>
-                                <Button 
+                                <Button
+                                    
                                     type="submit"
                                     bgColor="bg-blue-500"
                                     hoverColor="hover:bg-blue-900"
                                     disable={!(isValid && dirty)}
                                 >
-                                    Login 
+                                {
+                                    !loading ? "Login" : <Loader className='w-3 h-3'/> 
+                                }
                                 </Button>
                             </AnimateButton>
                         </div>

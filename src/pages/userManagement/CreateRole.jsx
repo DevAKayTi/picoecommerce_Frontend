@@ -3,14 +3,12 @@ import React, { useState,useEffect } from 'react';
 // react-route
 import { useNavigate } from 'react-router';
 
-//react-redux
-import { useSelector } from 'react-redux';
-
 // component
 import { FormInput } from '../../component/form';
 import AnimateButton from '../../component/button/AnimateButton';
 import Button from '../../component/button/Button';
 import { useHttp } from '../../hook/use-http';
+import Loader from '../../component/Loader';
 
 // third-party
 import * as Yup from 'yup';
@@ -25,9 +23,10 @@ import './Style.css';
         const http = useHttp();
 
         const [permission,setPermission] = useState([]);
+        const [loading,setLoading] = useState(false);
 
     useEffect(()=>{
-        const fetchRole =async()=>{
+        const createRole =async()=>{
             try{
                 const response = await http.get('/api/permissions');
                 setPermission(response.data);
@@ -35,7 +34,7 @@ import './Style.css';
                 console.log(error);
             }
         };
-        fetchRole();
+        createRole();
         
     },[]);
 
@@ -52,6 +51,7 @@ import './Style.css';
                         roleName : Yup.string().max(255).required('Password is required')
                     })}
                     onSubmit={async(values,{setSubmitting})=>{
+                        setLoading(true)
                         const permissionCreate = {
                             roleName: values.roleName,
                             permission:values.checked.map((val)=>Number(val))
@@ -64,9 +64,11 @@ import './Style.css';
                                 if(response){
                                     navigate('/roles');
                                 }
+                                setLoading(false);
                             })
                             setSubmitting(false);
                         }catch (err) {
+                            setLoading(false);
                             setSubmitting(false);
                         }
                     }}
@@ -119,7 +121,9 @@ import './Style.css';
                                                 hoverColor="hover:bg-blue-900"
                                                 disable={!(isValid && dirty)}
                                             >
-                                                Create 
+                                            {
+                                                !loading ? "Save" : <Loader className='w-3 h-3'/> 
+                                            } 
                                             </Button>
                                         </AnimateButton>
                                     </div>

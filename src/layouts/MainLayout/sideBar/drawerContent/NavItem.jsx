@@ -15,7 +15,6 @@ const NavItem = ({item}) => {
   const dispatch = useDispatch();
   const menu = useSelector((state) => state.menuBar);
   const {openItem} = menu;
-  const {permission} = useSelector(state=>state.authUser);
 
   const Icon = item.icon;
   const itemIcon = item.icon ? <Icon style={{ fontSize: '1.3rem'}} /> : false;

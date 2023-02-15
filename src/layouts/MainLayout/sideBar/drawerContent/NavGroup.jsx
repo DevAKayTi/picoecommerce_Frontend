@@ -9,17 +9,21 @@ const NavGroup = ({item}) => {
 
     const {permission} = useSelector(state=>state.authUser);
 
-    const feature= permission.map(item=>item.feature_id)
 
-    const navCollapse = item.children?.map((menuItem)=>(
-        <>
-        {
-            menuItem.type === 'item' && (feature.includes(menuItem.id) || menuItem.id === 'dashboard') && (       
-                <NavItem key={menuItem.id} item={menuItem} />
-            )
+    const navCollapse = item.children?.map((menuItem)=>{
+
+        const feature= permission.map(item=>item.feature_id)
+
+        if(feature.includes(menuItem.id) || menuItem.id === 'dashboard'){
+
+        switch(menuItem.type){
+            case 'item':
+                return <NavItem key={menuItem.id} item={menuItem} />;
+            default :
+            <div>Fix - Navigation Group</div>
         }
-        </>
-    ))
+        }
+    })
 
 
   return (

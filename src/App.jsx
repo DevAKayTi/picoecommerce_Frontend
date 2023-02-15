@@ -53,7 +53,6 @@ const App = () => {
         setProgress(progress+60);;        
     },[]);
 
-
     return(
         <>
         {

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ const User = () => {
                     <h3 className='text-lg font-semibold'>All users</h3>
                     {
                         feature.includes(1) && (
-                            <Link to='create' className='px-2 py-1 text-white flex items-center bg-cyan-500 rounded-sm'><AiOutlinePlus className='mr-1'/>Add</Link>
+                            <Link to='create' className='px-2 py-1 text-white flex items-center bg-blue-500 hover:bg-blue-800 duration-300 rounded-sm'><AiOutlinePlus className='mr-1'/>Add</Link>
                         )
                     }
                 </div>
@@ -91,24 +91,24 @@ const User = () => {
                                         <td>{user.name}</td>
                                         <td>{user.role.name}</td>
                                         <td>{user.email}</td>
-                                        <td className='flex items-center'>
+                                        <td>
                                             {
                                                 feature.includes(2) && (
-                                                    <Link to={`${user.id}/edit`}>
-                                                        <button className='py-2 px-3 flex justify-center items-center bg-blue-500 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
+                                                    <Link to={`${user.id}/edit`} className="md:float-left">
+                                                        <button className='py-2 px-3 flex justify-center items-center bg-blue-400 hover:bg-blue-600 duration-300 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
                                                     </Link>
                                                 )
                                             }
                                             {
                                                 feature.includes(3) && (
-                                                    <Link to={`${user.id}/view`}>
-                                                        <button className='py-2 px-3 flex justify-center items-center bg-green-500 rounded-sm text-white mr-3'><AiOutlineEye className='mr-1'/>View</button>
+                                                    <Link to={`${user.id}/view`} className="md:float-left">
+                                                        <button className='py-2 px-3 flex justify-center items-center bg-green-400 hover:bg-green-600 duration-300 rounded-sm text-white mr-3'><AiOutlineEye className='mr-1'/>View</button>
                                                     </Link>
                                                 )
                                             }
                                             {
                                                 feature.includes(4) && (
-                                                    <button onClick={()=>{deleteUserHandler(user.id)}} className='py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white'><AiOutlineDelete className='mr-1'/>Delete</button>    
+                                                    <button onClick={()=>{deleteUserHandler(user.id)}} className='float-left py-2 px-3 flex justify-center items-center bg-rose-400 hover:bg-rose-600 duration-300 rounded-sm text-white'><AiOutlineDelete className='mr-1'/>Delete</button>    
                                                 )
                                             }
                                         </td>

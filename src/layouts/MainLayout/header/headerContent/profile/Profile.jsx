@@ -16,8 +16,6 @@ import UserPopup from './UserPopup';
 import OutsideClickHandler from '../../../../../component/outsideclickhandler';
 import { useHttp } from '../../../../../hook/use-http';
 
-// third Party
-import axios from 'axios';
 
 // assets
 import avatar from '../../../../../assets/images/user/avatar-1.jpg';
@@ -40,7 +38,6 @@ const Profile = () => {
   const closeHandle = (event) => {
 
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      console.log('no')
         return;
     }
     console.log(anchorRef.current);

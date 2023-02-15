@@ -4,17 +4,13 @@ import { Audio } from 'react-loader-spinner'
 
 const Loader = () => {
     return (
-        <div className='w-screen h-screen flex justify-center items-center'>
             <Audio
-                height="80"
-                width="80"
+                height="24"
                 radius="9"
-                color='#181823'
+                color='#eee'
                 ariaLabel='three-dots-loading'
                 wrapperClass="wrapper-class"
             />
-        </div>
-
     )
 }
 

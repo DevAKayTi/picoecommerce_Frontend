@@ -7,6 +7,7 @@ import { FormInput,FormSelect } from '../../component/form';
 import AnimateButton from '../../component/button/AnimateButton';
 import Button from '../../component/button/Button';
 import { useHttp } from '../../hook/use-http';
+import Loader from '../../component/Loader';
 
 // third-party
 import * as Yup from 'yup';
@@ -23,6 +24,7 @@ const EditUser = () => {
 
     const [userInfo,setUserInfo] = useState({}); 
     const [role,setRole] = useState([]);
+    const [loading,setLoading] = useState(false);
 
     useEffect(()=>{
         const fetchUser = async()=>{
@@ -66,6 +68,7 @@ const EditUser = () => {
                 email : Yup.string().email('Must be a valid email').max(255).required('Email is required'),
             })}
             onSubmit={async(values,{setSubmitting})=>{
+                setLoading(true)
                 const user = {
                     name : `${values.firstName} ${values.lastName}`,
                     username : values.userName,
@@ -84,10 +87,12 @@ const EditUser = () => {
                         if(response){
                             navigate('/users');
                         }
+                        setLoading(false);
                     }) 
                     setSubmitting(false);
                 }catch (err) {
                     console.log(err.response.data)
+                    setLoading(false);
                     setSubmitting(false);
                 }
             }}
@@ -271,7 +276,9 @@ const EditUser = () => {
                                             width="w-[70px]"
                                             disable={!(isValid && dirty)}
                                         >
-                                            Update 
+                                        {
+                                            !loading ? "Update" : <Loader className='w-3 h-3'/> 
+                                        }  
                                         </Button>
                                     </AnimateButton>
                                 </div>
