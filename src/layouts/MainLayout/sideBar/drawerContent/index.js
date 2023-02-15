@@ -8,15 +8,15 @@ import menuItem from '../../../../menu-items';
 
 const DrawerContent = () => {
 
-    const NavGroups = menuItem.items.map((item) => {
-        switch (item.type) {
-            case 'group':
-                return <NavGroup key={item.id} item={item} />;
-
-            default:
-                <div>Fix - Navigation Group</div>
-        }
-    })
+    const NavGroups = menuItem.items.map((item) => (
+        <>
+            {
+                item.type === 'group' && (
+                    <NavGroup key={item.id} item={item} />
+                )
+            }
+        </>
+    ));
 
     return (
         <div className='flex flex-col'>

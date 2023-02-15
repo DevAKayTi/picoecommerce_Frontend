@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 //react-redux
 import { useDispatch, useSelector} from 'react-redux';
-import { authControl,authToken } from '../../../store/reducer/auth';
+import { authControl,authPermission,authToken } from '../../../store/reducer/auth';
 
 // Component
 import {FormInput} from '../../../component/form';
@@ -36,7 +36,8 @@ const AuthLogin = () => {
         try{
             const user = await http.get('/api/user');
             console.log(user.data);
-            dispatch(authControl({userInfo:user.data}));
+            dispatch(authControl({userInfo:user.data.userInfo}));
+            dispatch(authPermission({permission:user.data.permission.permission}));
             navigate('/');
         }catch(err){
             console.log(err);
@@ -76,6 +77,7 @@ const AuthLogin = () => {
 
                 const login = await http.post('api/login',userLogin);
                 console.log(login);
+
                 dispatch(authToken({token:login.data.message}));
 
                 navigate('/');
@@ -85,6 +87,7 @@ const AuthLogin = () => {
                 setSubmitting(false);
             }
         }}>
+
         {
             ({values,handleBlur,handleChange,handleSubmit,errors,touched,isValid,dirty})=>(
                 <form onSubmit={handleSubmit}>

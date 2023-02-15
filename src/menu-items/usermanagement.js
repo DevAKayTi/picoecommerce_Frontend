@@ -16,7 +16,7 @@ const pages = {
     type: 'group',
     children: [
         {
-            id: 'users',
+            id: 1,
             title: 'Users',
             type: 'item',
             url: '/users',
@@ -24,7 +24,7 @@ const pages = {
             target: true
         },
         {
-            id: 'roles',
+            id: 2,
             title: 'Roles',
             type: 'item',
             url: '/roles',

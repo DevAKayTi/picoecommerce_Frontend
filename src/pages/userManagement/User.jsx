@@ -17,7 +17,10 @@ const User = () => {
 
     const dispatch = useDispatch();
     const {users} = useSelector((state)=>state.userManagement);
+    const {permission} =useSelector(state=>state.authUser);
     const http = useHttp();
+
+    const feature = permission.map(item=>item.id);
 
     // const [isLoading,setIsLoading] = useState(false);
 
@@ -50,7 +53,11 @@ const User = () => {
             <div className='bg-white p-6 rounded-md shadow-md'>
                 <div className='w-full flex justify-between items-center pb-10'>
                     <h3 className='text-lg font-semibold'>All users</h3>
-                    <Link to='create' className='px-2 py-1 text-white flex items-center bg-cyan-500 rounded-sm'><AiOutlinePlus className='mr-1'/>Add</Link>
+                    {
+                        feature.includes(1) && (
+                            <Link to='create' className='px-2 py-1 text-white flex items-center bg-cyan-500 rounded-sm'><AiOutlinePlus className='mr-1'/>Add</Link>
+                        )
+                    }
                 </div>
                 <div className='flex justify-between items-center pb-6'>
                     <div>
@@ -85,13 +92,25 @@ const User = () => {
                                         <td>{user.role.name}</td>
                                         <td>{user.email}</td>
                                         <td className='flex items-center'>
-                                            <Link to={`${user.id}/edit`}>
-                                                <button className='py-2 px-3 flex justify-center items-center bg-blue-500 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
-                                            </Link>
-                                            <Link to={`${user.id}/view`}>
-                                                <button className='py-2 px-3 flex justify-center items-center bg-green-500 rounded-sm text-white mr-3'><AiOutlineEye className='mr-1'/>View</button>
-                                            </Link>
-                                            <button onClick={()=>{deleteUserHandler(user.id)}} className='py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white'><AiOutlineDelete className='mr-1'/>Delete</button>
+                                            {
+                                                feature.includes(2) && (
+                                                    <Link to={`${user.id}/edit`}>
+                                                        <button className='py-2 px-3 flex justify-center items-center bg-blue-500 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
+                                                    </Link>
+                                                )
+                                            }
+                                            {
+                                                feature.includes(3) && (
+                                                    <Link to={`${user.id}/view`}>
+                                                        <button className='py-2 px-3 flex justify-center items-center bg-green-500 rounded-sm text-white mr-3'><AiOutlineEye className='mr-1'/>View</button>
+                                                    </Link>
+                                                )
+                                            }
+                                            {
+                                                feature.includes(4) && (
+                                                    <button onClick={()=>{deleteUserHandler(user.id)}} className='py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white'><AiOutlineDelete className='mr-1'/>Delete</button>    
+                                                )
+                                            }
                                         </td>
                                     </tr>
                                 ))

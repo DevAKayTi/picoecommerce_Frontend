@@ -17,10 +17,14 @@ const Role = () => {
 
     const dispatch = useDispatch();
     const {roles} = useSelector((state)=>state.userManagement);
+    const {userInfo} = useSelector(state=>state.authUser);
+    const {permission} =useSelector(state=>state.authUser);
+
     const http = useHttp();
 
     const [isLoading,setIsLoading] = useState(false);
 
+    const feature = permission.map(item=>item.id);
 
     const fetchRole =async()=>{
         try{
@@ -54,7 +58,11 @@ const Role = () => {
         <div className='bg-white p-6 rounded-md shadow-md'>
             <div className='w-full flex justify-between items-center pb-10'>
                 <h3 className='text-lg font-semibold'>All roles</h3>
-                <Link to='create' className='px-2 py-1 text-white flex items-center bg-cyan-500 rounded-sm'><AiOutlinePlus className='mr-1'/>Add</Link>
+                {
+                    feature.includes(1) && (
+                        <Link to='create' className='px-2 py-1 text-white flex items-center bg-cyan-500 rounded-sm'><AiOutlinePlus className='mr-1'/>Add</Link>    
+                    )
+                }
             </div>
             <div className='flex justify-between items-center pb-6'>
                 <div>
@@ -82,11 +90,20 @@ const Role = () => {
                             roles.map((role)=>(
                                 <tr key={role.id}>
                                     <td className='text-gray-500 w-1/2'>{role.name}</td>
-                                    <td className='flex items-center'>
-                                        <Link to={`${role.id}/edit`}>
-                                            <button className='py-2 px-3 flex justify-center items-center bg-blue-500 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
-                                        </Link>
-                                        <button onClick={()=>{deleteRoleHandler(role.id)}} disabled={isLoading} className={`py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white`}><AiOutlineDelete className='mr-1'/>Delete</button>
+                                    <td>
+                                    {
+                                        feature.includes(2) && (
+                                            <Link to={`${role.id}/edit`} className='float-left'>
+                                                <button className='py-2 px-3 flex justify-center items-center bg-blue-500 rounded-sm text-white mr-3'><AiOutlineEdit className='mr-1'/>Edit</button>
+                                            </Link>
+                                        )
+                                    }
+                                        
+                                    {
+                                        feature.includes(4) && (
+                                            <button className='inline-block' onClick={()=>{deleteRoleHandler(role.id)}} disabled={isLoading} className={`py-2 px-3 flex justify-center items-center bg-rose-500 rounded-sm text-white`}><AiOutlineDelete className='mr-1'/>Delete</button>                        
+                                        )
+                                    }
                                     </td>
                                 </tr>
                             ))

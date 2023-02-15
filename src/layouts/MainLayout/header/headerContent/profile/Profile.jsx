@@ -14,6 +14,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import Popper from '../Popper';
 import UserPopup from './UserPopup';
 import OutsideClickHandler from '../../../../../component/outsideclickhandler';
+import { useHttp } from '../../../../../hook/use-http';
 
 // third Party
 import axios from 'axios';
@@ -22,32 +23,19 @@ import axios from 'axios';
 import avatar from '../../../../../assets/images/user/avatar-1.jpg';
 
 
-
 const Profile = () => {
 
   const anchorRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const http = useHttp();
   const {userInfo,token} = useSelector(state=>state.authUser);
 
   const [open,setOpen] = useState(false);
 
-  const http = axios.create({
-    baseURL: 'http://localhost:8000',
-    headers:{
-        'Accept':'application/json',
-        'Authorization':`Bearer ${token}`,
-        'X-Requested-Width':'XMLHttpRequest',
-        
-    },
-    withCredentials:true,
-  });
-
   const toggleHandler = () => {
     setOpen(prev => !prev);
   }
-
-  console.log(token)
 
   const closeHandle = (event) => {
 
@@ -96,7 +84,7 @@ const Profile = () => {
                     </div>
                     <div className='ml-4'>
                       <h3 className='text-md tracking-wide'>{userInfo?.name}</h3>
-                      <h5 className='text-sm text-gray-400'>{userInfo?.role.name}</h5>
+                      <h5 className='text-sm text-gray-400'>{userInfo?.role?.name}</h5>
                     </div>
                   </div>
                   <button onClick={logoutHandler} className='p-3 rounded-full hover:bg-gray-100'> 
