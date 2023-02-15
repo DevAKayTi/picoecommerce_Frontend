@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import { Lazy } from "react-is";
 
 
 //component
@@ -20,7 +21,6 @@ const ViewUser = Loadable(lazy(() => import('../pages/userManagement/ViewUser'))
 const Role = Loadable(lazy(() => import('../pages/userManagement/Role')));
 const CreateRole = Loadable(lazy(() => import('../pages/userManagement/CreateRole')));
 const EditRole = Loadable(lazy(() => import('../pages/userManagement/EditRole')));
-
 const MainRoutes = {
     path: '/',
     element:

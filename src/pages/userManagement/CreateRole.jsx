@@ -32,6 +32,7 @@ import './Style.css';
                 setPermission(response.data);
             }catch(error){
                 console.log(error);
+                navigate('/error');
             }
         };
         createRole();
@@ -69,6 +70,7 @@ import './Style.css';
                             setSubmitting(false);
                         }catch (err) {
                             setLoading(false);
+                            navigate('/error');
                             setSubmitting(false);
                         }
                     }}

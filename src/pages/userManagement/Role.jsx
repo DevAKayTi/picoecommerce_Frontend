@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 //react-redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +15,7 @@ import { useHttp } from '../../hook/use-http';
 import {AiOutlinePlus,AiOutlineEdit,AiOutlineDelete} from 'react-icons/ai';
 
 const Role = () => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {roles} = useSelector((state)=>state.userManagement);
     const {userInfo} = useSelector(state=>state.authUser);
@@ -33,6 +34,7 @@ const Role = () => {
             
         }catch(error){
             console.log(error);
+            navigate('/error');
         }
     };
 
@@ -45,6 +47,7 @@ const Role = () => {
         }catch (err) {
             console.log(err.response.data);
             setIsLoading(false);
+            navigate('/error');
         }
     }
 

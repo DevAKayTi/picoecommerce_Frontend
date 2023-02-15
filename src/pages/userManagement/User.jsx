@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 //react-redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +15,7 @@ import { useHttp } from '../../hook/use-http';
 import {AiOutlinePlus,AiOutlineEdit,AiOutlineDelete,AiOutlineEye} from 'react-icons/ai';
 
 const User = () => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const {users} = useSelector((state)=>state.userManagement);
     const {permission} =useSelector(state=>state.authUser);
@@ -30,6 +31,7 @@ const User = () => {
             dispatch(userValue({users:response.data}));     
         }catch(error){
             console.log(error);
+            navigate('/error');
         }
     };
 
@@ -44,6 +46,7 @@ const User = () => {
             fetchUserIndex();
         }catch (err) {
             console.log(err.response.data);
+            navigate('/error');
         }
     }
 

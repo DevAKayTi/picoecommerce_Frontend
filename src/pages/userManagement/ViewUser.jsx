@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 //component
-import { FormSelect } from '../../component/form';
+// import { FormSelect } from '../../component/form';
 import AnimateButton from '../../component/button/AnimateButton';
 import Button from '../../component/button/Button';
 import { useHttp } from '../../hook/use-http';
@@ -18,7 +19,7 @@ import Avatar from '../../assets/images/user/avatar-1.jpg';
 import './ViewUser.css';
 
 const ViewUser = () => {
-
+    const navigate = useNavigate();
     const {id} = useParams();
     const http = useHttp();
 
@@ -39,6 +40,7 @@ const ViewUser = () => {
                 console.log(response);
             }catch(err){
                 console.log(err.response.data);
+                navigate('/error');
             }
         }
         fetchuser();

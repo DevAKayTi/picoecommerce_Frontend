@@ -87,12 +87,12 @@ const AuthLogin = () => {
                 setSubmitting(false);
                 setLoading(false);
             }catch (err) {
-                console.log(err.response.status);
                 if(err.response.status === 401){
                     setError(err.response.status);
                 }
                 setSubmitting(false);
                 setLoading(false);
+                navigate('/error');
             }
         }}>
 

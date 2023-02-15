@@ -32,6 +32,7 @@ const CreateUser = () => {
                 console.log(response.data);
             }catch(error){
                 console.log(error);
+                navigate('/error');
             }
         };
         fetchUser();        
@@ -92,6 +93,7 @@ const CreateUser = () => {
                         console.log(err.response.data)
                         setLoading(false);
                         setSubmitting(false);
+                        navigate('/error');
                     }
                 }}
             >

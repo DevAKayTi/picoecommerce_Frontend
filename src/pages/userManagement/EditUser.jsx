@@ -35,6 +35,8 @@ const EditUser = () => {
                 setUserInfo(response.data.userinfo);
             }catch(err){
                 console.log(err.response.data);
+                navigate('/error');
+
             }
         };
         fetchUser();
@@ -94,6 +96,7 @@ const EditUser = () => {
                     console.log(err.response.data)
                     setLoading(false);
                     setSubmitting(false);
+                    navigate('/error');
                 }
             }}
         >

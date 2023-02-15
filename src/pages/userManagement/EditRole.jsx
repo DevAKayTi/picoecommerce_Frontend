@@ -36,6 +36,7 @@ const EditRole = () => {
                 setRoleId(response.data.role_name);
             }catch(err){
                 console.log(err);
+                navigate('/error');
             }
         };
         fetchRole();
@@ -78,6 +79,7 @@ const EditRole = () => {
                         console.log(err.response.data)
                         setLoading(false);
                         setSubmitting(false);
+                        navigate('/error');
                     }
                   }}
               >
